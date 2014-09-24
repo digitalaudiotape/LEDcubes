@@ -24,7 +24,7 @@ Lattice lattice;
 
 int [][][] latticeElements;
 
-XYZ travelingXYZ;
+PVector travelingXYZ;
 
 void setup()
 {
@@ -105,8 +105,8 @@ void draw()
 
     travelingXYZ = indexToXYZ(travelingIndex);
     
-    cubeIndex = lattice.getCubeIndexAtXYZ(travelingXYZ.x, travelingXYZ.y, travelingXYZ.z);
-    currentCube = lattice.getCubeAtXYZ(travelingXYZ.x, travelingXYZ.y, travelingXYZ.z);
+    cubeIndex = lattice.getCubeIndexAtXYZ(travelingXYZ);
+    currentCube = lattice.getCubeAtXYZ(travelingXYZ);
     
     if (currentCube != null)
     {
@@ -131,9 +131,9 @@ void draw()
   
 }
 
-XYZ indexToXYZ(int travIndex)
+PVector indexToXYZ(int travIndex)
 {
-   XYZ xyz = new XYZ();
+   PVector xyz = new PVector();
    
    // travel along x
    xyz.x = travIndex % LSX;
