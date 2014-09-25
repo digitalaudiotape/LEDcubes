@@ -22,95 +22,95 @@ void setup()
   opc = new OPC(this, "127.0.0.1", 7890);
   
   // cube 1
-  opc.led(0, -0 + width * 1/6, -0 + height * 3/6);
-  opc.led(1, -1 + width * 1/6, -1 + height * 3/6);
-  opc.led(2, -2 + width * 1/6, -2 + height * 3/6);
-  opc.led(3, -3 + width * 1/6, -3 + height * 3/6);
+  opc.led(0, width * 1/6, height * 3/6);
+  opc.led(1, width * 1/6, height * 3/6);
+  opc.led(2, width * 1/6, height * 3/6);
+  opc.led(3, width * 1/6, height * 3/6);
   
   // cube 2
-  opc.led(4, -0 + width * 2/6, -0 +  height * 4/6);
-  opc.led(5, -1 + width * 2/6, -1 + height * 4/6);
-  opc.led(6, -2 + width * 2/6, -2 + height * 4/6);
-  opc.led(7, -3 + width * 2/6, -3 + height * 4/6);
+  opc.led(4, width * 2/6, height * 4/6);
+  opc.led(5, width * 2/6, height * 4/6);
+  opc.led(6, width * 2/6, height * 4/6);
+  opc.led(7, width * 2/6, height * 4/6);
   
   // cube 3
-  opc.led(8, -0 + width * 1/6, -0 + height * 3/6);
-  opc.led(9, -1 + width * 1/6, -1 + height * 3/6);
-  opc.led(10, -2 + width * 1/6, -2 + height * 3/6);
-  opc.led(11, -3 + width * 1/6, -3 + height * 3/6);
+  opc.led(8, width * 1/6, height * 3/6);
+  opc.led(9, width * 1/6, height * 3/6);
+  opc.led(10, width * 1/6, height * 3/6);
+  opc.led(11, width * 1/6, height * 3/6);
    
   // cube 4
-  opc.led(12, -0 + width * 2/6, -0 + height * 2/6);
-  opc.led(13, -1 + width * 2/6, -1 + height * 2/6);
-  opc.led(14, -2 + width * 2/6, -2 + height * 2/6);
-  opc.led(15, -3 + width * 2/6, -3 + height * 2/6);
+  opc.led(12, width * 2/6, height * 2/6);
+  opc.led(13, width * 2/6, height * 2/6);
+  opc.led(14, width * 2/6, height * 2/6);
+  opc.led(15, width * 2/6, height * 2/6);
    
   // cube 5
-  opc.led(16, -0 + width * 3/6, -0 + height * 1/6);
-  opc.led(17, -1 + width * 3/6, -1 + height * 1/6);
-  opc.led(18, -2 + width * 3/6, -2 + height * 1/6);
-  opc.led(19, -3 + width * 3/6, -3 + height * 1/6);
+  opc.led(16, width * 3/6, height * 1/6);
+  opc.led(17, width * 3/6, height * 1/6);
+  opc.led(18, width * 3/6, height * 1/6);
+  opc.led(19, width * 3/6, height * 1/6);
   
   // cube 6
-  opc.led(20, -0 + width * 2/6, -0 + height * 2/6);
-  opc.led(21, -1 + width * 2/6, -1 + height * 2/6);
-  opc.led(22, -2 + width * 2/6, -2 + height * 2/6);
-  opc.led(23, -3 + width * 2/6, -3 + height * 2/6);
+  opc.led(20, width * 2/6, height * 2/6);
+  opc.led(21, width * 2/6, height * 2/6);
+  opc.led(22, width * 2/6, height * 2/6);
+  opc.led(23, width * 2/6, height * 2/6);
   
   // cube 7
-  opc.led(24, -0 + width * 3/6, -0 + height * 3/6);
-  opc.led(25, -1 + width * 3/6, -1 + height * 3/6);
-  opc.led(26, -2 + width * 3/6, -2 + height * 3/6);
-  opc.led(27, -3 + width * 3/6, -3 + height * 3/6);
+  opc.led(24, width * 3/6, height * 3/6);
+  opc.led(25, width * 3/6, height * 3/6);
+  opc.led(26, width * 3/6, height * 3/6);
+  opc.led(27, width * 3/6, height * 3/6);
 
   // cube 8
-  opc.led(28, -0 + width * 4/6, -0 + height * 2/6);
-  opc.led(29, -1 + width * 4/6, -1 + height * 2/6);
-  opc.led(30, -2 + width * 4/6, -2 + height * 2/6);
-  opc.led(31, -3 + width * 4/6, -3 + height * 2/6);
+  opc.led(28, width * 4/6, height * 2/6);
+  opc.led(29, width * 4/6, height * 2/6);
+  opc.led(30, width * 4/6, height * 2/6);
+  opc.led(31, width * 4/6, height * 2/6);
   
   // cube 9
-  opc.led(32, -0 + width * 5/6, -0 + height * 1/6);
-  opc.led(33, -1 + width * 5/6, -1 + height * 1/6);
-  opc.led(34, -2 + width * 5/6, -2 + height * 1/6);
-  opc.led(35, -3 + width * 5/6, -3 + height * 1/6);
+  opc.led(32, width * 5/6, height * 1/6);
+  opc.led(33, width * 5/6, height * 1/6);
+  opc.led(34, width * 5/6, height * 1/6);
+  opc.led(35, width * 5/6, height * 1/6);
     
   // cube 10
-  opc.led(36, -0 + width * 4/6, -0 + height * 2/6);
-  opc.led(37, -1 + width * 4/6, -1 + height * 2/6);
-  opc.led(38, -2 + width * 4/6, -2 + height * 2/6);
-  opc.led(39, -3 + width * 4/6, -3 + height * 2/6);
+  opc.led(36, width * 4/6, height * 2/6);
+  opc.led(37, width * 4/6, height * 2/6);
+  opc.led(38, width * 4/6, height * 2/6);
+  opc.led(39, width * 4/6, height * 2/6);
   
  
   // cube 11
-  opc.led(40, -0 + width * 5/6, -0 + height * 3/6);
-  opc.led(41, -1 + width * 5/6, -1 + height * 3/6);
-  opc.led(42, -2 + width * 5/6, -2 + height * 3/6);
-  opc.led(43, -3 + width * 5/6, -3 + height * 3/6);
+  opc.led(40, width * 5/6, height * 3/6);
+  opc.led(41, width * 5/6, height * 3/6);
+  opc.led(42, width * 5/6, height * 3/6);
+  opc.led(43, width * 5/6, height * 3/6);
   
   // cube 12
-  opc.led(44, -0 + (width * 6/6) -1, -0 + height * 4/6);
-  opc.led(45, -1 + (width * 6/6) -1, -1 + height * 4/6);
-  opc.led(46, -2 + (width * 6/6) -1, -2 + height * 4/6);
-  opc.led(47, -3 + (width * 6/6) -1, -3 + height * 4/6);
+  opc.led(44, (width * 6/6) -1, height * 4/6);
+  opc.led(45, (width * 6/6) -1, height * 4/6);
+  opc.led(46, (width * 6/6) -1, height * 4/6);
+  opc.led(47, (width * 6/6) -1, height * 4/6);
  
   // cube 13
-  opc.led(48, -0 + width * 5/6, -0 + height * 5/6);
-  opc.led(49, -1 + width * 5/6, -1 + height * 5/6);
-  opc.led(50, -2 + width * 5/6, -2 + height * 5/6);
-  opc.led(51, -3 + width * 5/6, -3 + height * 5/6);
+  opc.led(48, width * 5/6, height * 5/6);
+  opc.led(49, width * 5/6, height * 5/6);
+  opc.led(50, width * 5/6, height * 5/6);
+  opc.led(51, width * 5/6, height * 5/6);
  
   // cube 14
-  opc.led(52, -0 + (width * 6/6) -1, -0 + (height * 6/6) -1);
-  opc.led(53, -1 + (width * 6/6) -1, -1 + (height * 6/6) -1);
-  opc.led(54, -2 + (width * 6/6) -1, -2 + (height * 6/6) -1);
-  opc.led(55, -3 + (width * 6/6) -1, -3 + (height * 6/6) -1);
+  opc.led(52, (width * 6/6) -1, (height * 6/6) -1);
+  opc.led(53, (width * 6/6) -1, (height * 6/6) -1);
+  opc.led(54, (width * 6/6) -1, (height * 6/6) -1);
+  opc.led(55, (width * 6/6) -1, (height * 6/6) -1);
     
   // cube 15
-  opc.led(56, -0 + width * 5/6, -0 + height * 5/6);
-  opc.led(57, -1 + width * 5/6, -1 + height * 5/6);
-  opc.led(58, -2 + width * 5/6, -2 + height * 5/6);
-  opc.led(59, -3 + width * 5/6, -3 + height * 5/6);
+  opc.led(56, width * 5/6, height * 5/6);
+  opc.led(57, width * 5/6, height * 5/6);
+  opc.led(58, width * 5/6, height * 5/6);
+  opc.led(59, width * 5/6, height * 5/6);
     
 
   // We can have up to 100 rings. They all start out invisible.
