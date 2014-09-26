@@ -6,19 +6,19 @@
  */
 
 int PIXELS_PER_CUBE = 4;
-int MAX_CUBES = 15 ;
-int MAX_LATTICE_VOLUME = 216;
+int MAX_CUBES = 20 ;
+int MAX_LATTICE_VOLUME = 252;
 
 //lattice space dimensions
 int LSX = 6;
-int LSY = 6;
+int LSY = 7;
 int LSZ = 6;
 
 OPCLowLevel opc;
 
 int travelingIndex;
 int time, oldTime;
-int delay = 100;
+int delay = 50;
 
 Lattice lattice;
 
@@ -53,6 +53,12 @@ void setup()
   latticeElements[4][4][5] = 12;
   latticeElements[5][5][4] = 13;
   latticeElements[4][4][3] = 14;
+  
+  latticeElements[3][5][4] = 15;
+  latticeElements[2][4][3] = 16;
+  latticeElements[1][5][2] = 17;
+  latticeElements[2][6][1] = 18;
+  latticeElements[3][5][0] = 19;
   
   opc = new OPCLowLevel("127.0.0.1", 7890, MAX_CUBES * PIXELS_PER_CUBE);
   allPixelsOff();

@@ -86,9 +86,9 @@ public class Lattice
       v.x = 0;
     }
     
-    else if (v.y > 5)
+    else if (v.y > 6)
     {
-      v.y = 5;
+      v.y = 6;
     }
     else if (v.y < 0)
     {
@@ -138,9 +138,9 @@ public class Lattice
   int[] adjacentCubesXYZ(PVector xyz)
   {
     int clusterIndex = 0;
-    int[] cluster = new int[80];
+    int[] cluster = new int[100];
     
-    for (int i= 0; i < 80; i++)
+    for (int i= 0; i < 100; i++)
     {
       
       cluster[i] = -2;
@@ -158,7 +158,7 @@ public class Lattice
         {
           clusterIndex = (i*9) + (j*3) + k;
           // make sure the spot we're testing is within the volume bounds
-            if (clusterIndex < 216 && i >= 0 && i < x && j >= 0 && j < y && k >= 0 && k < z)
+            if (clusterIndex < 100 && i >= 0 && i < x && j >= 0 && j < y && k >= 0 && k < z)
             {
               v.x = i;
               v.y = j;
@@ -178,7 +178,7 @@ public class Lattice
 
 /*    
     print("cluster contents: ");
-    for (int i = 0; i < 80; i++)
+    for (int i = 0; i < 100; i++)
     {
      print(cluster[i] + " ");
     }

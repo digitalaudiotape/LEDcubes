@@ -29,7 +29,7 @@ int MAX_LATTICE_VOLUME = 216;
 
 //lattice space dimensions
 int LSX = 6;
-int LSY = 6;
+int LSY = 7;
 int LSZ = 6;
 
 OPCLowLevel opc;
@@ -77,6 +77,12 @@ void setup()
   latticeElements[4][4][5] = 12;
   latticeElements[5][5][4] = 13;
   latticeElements[4][4][3] = 14;
+  
+  latticeElements[3][5][4] = 15;
+  latticeElements[2][4][3] = 16;
+  latticeElements[1][5][2] = 17;
+  latticeElements[2][6][1] = 18;
+  latticeElements[3][5][0] = 19;
   
   opc = new OPCLowLevel("127.0.0.1", 7890, MAX_CUBES * PIXELS_PER_CUBE);
   

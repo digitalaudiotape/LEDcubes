@@ -6,7 +6,7 @@
  */
 
 int PIXELS_PER_CUBE = 4;
-int MAX_CUBES = 15 ;
+int MAX_CUBES = 20;
 
 OPCLowLevel opc;
 
