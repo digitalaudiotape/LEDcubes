@@ -24,8 +24,8 @@ float last_y_position = 0;
 // end leap motion
 
 int PIXELS_PER_CUBE = 4;
-int MAX_CUBES = 15 ;
-int MAX_LATTICE_VOLUME = 216;
+int MAX_CUBES = 20;
+int MAX_LATTICE_VOLUME = 252;
 
 //lattice space dimensions
 int LSX = 6;
