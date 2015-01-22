@@ -12,6 +12,8 @@ import de.voidplus.leapmotion.*;
 
 LeapMotion leap;
 
+int ticker = 0;
+
 int lastId = -1;
 float lastX, lastY; 
 
@@ -39,9 +41,10 @@ OPCLowLevel opc;
 
 int travelingIndex;
 int time, oldTime;
-int delay = 100;
 
-float decay = 0.01;
+int delay = 1000;
+
+Cube[] cubes;
 
 Lattice lattice;
 
@@ -90,27 +93,36 @@ void setup()
   
   opc = new OPCLowLevel("127.0.0.1", 7890, MAX_CUBES * PIXELS_PER_CUBE);
   
-  
-// uncomment these if you want to disable either feature. See Dithering_Interpolation_Info tab for more
-// opc.setDithering(false);
-// opc.setInterpolation(false);
-  
+
+ 
   allPixelsOff();
   
   lattice = new Lattice(LSX, LSY, LSZ, latticeElements, MAX_CUBES, PIXELS_PER_CUBE);
 
-  // give each cube a single white LED at its root
-  for (int i = 0; i < MAX_CUBES; i++)
-  {
-    lattice.getCubeAtIndex(i).setAnteriorRGB(255,255,255);
-    lattice.getCubeAtIndex(i).setSuperiorRGB(255,255,255);
-    lattice.getCubeAtIndex(i).setPosteriorRGB(255,255,255);
-    lattice.getCubeAtIndex(i).setInferiorRGB(255,255,255);
-  }  
-  
-  lattice.printContents();
-  
+ 
   cubeIndexCluster = new int[125];
+  
+// end lattice setup
+
+// rotating cube colors setup
+  int root;
+  
+  for (int i = 0; i < MAX_CUBES; i++)
+  {   
+    lattice.getCubeAtIndex(i).setAnteriorRGB(255, 0, 0);
+    lattice.getCubeAtIndex(i).setSuperiorRGB(255, 0, 0);
+    lattice.getCubeAtIndex(i).setPosteriorRGB(0, 0, 255);
+    lattice.getCubeAtIndex(i).setInferiorRGB(0, 0, 255);
+    
+    lattice.getCubeAtIndex(i).loadPixelPacket(opc);
+    opc.sendPixels();
+  }
+
+// end rotating cube colors setup
+  
+  time = millis();
+  oldTime = time;
+  
 }
 
 void allPixelsOff()
@@ -134,7 +146,7 @@ int iter = 0;
 
 void draw()
 {
-    
+  time = millis();
 
   background(0);
 
@@ -235,9 +247,11 @@ void draw()
           
             //if (currentCube != null)
             {
-              //currentCube.rotateForward();
+              time = millis();
+              currentCube.incSpeed(time);
+              //currentCube.clearCubeColors();
               //currentCube.loadPixelPacket(opc);
-              currentCube.incLife(1.0);              
+              //opc.sendPixels();              
             }
           }
         }
@@ -252,25 +266,32 @@ void draw()
     
     // outside of leap motion for-loop
     
-    // decrement all the cubes in the lattice
+    // check every cube each draw iteration to see if each needs to be rotated
     for (int i = 0; i < MAX_CUBES; i++)
-    {
-      currentCube = lattice.getCubeAtIndex(i);
-      currentCube.decLife(decay);
+    { 
+        currentCube = lattice.getCubeAtIndex(i);
+        if(currentCube.rotateForward(time))
+        {
+          currentCube.loadPixelPacket(opc);
+//          currentCube.loadPixelPacketLife(opc, ((float)currentCube.getSpeed() + 6)/12.0);
+          opc.sendPixels();    
+        }
     }
     
-    // load the current state of each cube into the opc object
+    // end cube rotation code
     
-    
-    currentCube = null;
-    for (int i = 0; i < MAX_CUBES; i++)
+    // decrement the rotation speed for all the cubes in the lattice after every second
+    time = millis();
+    if (time - oldTime > delay)
     {
-      currentCube = lattice.getCubeAtIndex(i);
-      currentCube.loadPixelPacketLife(opc); 
-    }
+      for (int i = 0; i < MAX_CUBES; i++)
+      {
+        lattice.getCubeAtIndex(i).decSpeed();
+      }
+      oldTime = time;
+      ticker++;
+    }     
     
-    opc.sendPixels();
-        
 }
 
 void clearVolume(int [][][] vol, int x, int y, int z)
