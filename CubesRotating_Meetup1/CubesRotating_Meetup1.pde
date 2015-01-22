@@ -25,6 +25,7 @@ float last_x_position = 0;
 float last_y_position = 0;
 
 
+
 // end leap motion
 
 int PIXELS_PER_CUBE = 4;
@@ -42,7 +43,11 @@ OPCLowLevel opc;
 int travelingIndex;
 int time, oldTime;
 
+
 int delay = 1000;
+
+int fadeDelay = 30;
+int lastFadeTime;
 
 Cube[] cubes;
 
@@ -109,6 +114,13 @@ void setup()
   
   for (int i = 0; i < MAX_CUBES; i++)
   {   
+    
+    /*lattice.getCubeAtIndex(i).setAnteriorRGB(255, 255, 255);
+    lattice.getCubeAtIndex(i).setSuperiorRGB(255, 0, 0);
+    lattice.getCubeAtIndex(i).setPosteriorRGB(0, 255, 0);
+    lattice.getCubeAtIndex(i).setInferiorRGB(0, 0, 255);
+    */
+    
     lattice.getCubeAtIndex(i).setAnteriorRGB(255, 0, 0);
     lattice.getCubeAtIndex(i).setSuperiorRGB(255, 0, 0);
     lattice.getCubeAtIndex(i).setPosteriorRGB(0, 0, 255);
@@ -122,6 +134,7 @@ void setup()
   
   time = millis();
   oldTime = time;
+  lastFadeTime = time;
   
 }
 
@@ -141,6 +154,7 @@ Cube currentCube;
 int currentCubeIndex;
 int cubeIndex = -1;
 
+int lastHandDirection; // -1 is left, +1 is right
 
 int iter = 0;
 
@@ -187,9 +201,9 @@ void draw()
 
 // determine x direction 
 //        println("dirv.x = " + dirv.x);
-        if (dirv.x > 1)
+        if (dirv.x > 0)
         {
-//           println("right");
+           println("right");
           dirx = 1;
         }
         else if (dirv.x <= 1 && dirv.x >= -1)
@@ -199,7 +213,7 @@ void draw()
         }
         else //dirv.x < -1
         {
-//          println("left");
+          println("left");
           dirx = -1;
         }
         last_x_position = current_x_position;
@@ -248,10 +262,31 @@ void draw()
             //if (currentCube != null)
             {
               time = millis();
-              currentCube.incSpeed(time);
-              //currentCube.clearCubeColors();
-              //currentCube.loadPixelPacket(opc);
-              //opc.sendPixels();              
+              if (dirx < 0)
+              {
+                 currentCube.incSpeed(time);
+                 lastHandDirection = -1;
+              }
+              else if (dirx > 0)
+              {
+                 currentCube.decSpeed(time);
+                 lastHandDirection = 1; 
+              }
+              
+              // code to repeat the previous direction if hand is still "touching" cubes
+              
+              /*else
+              {
+                if (lastHandDirection == -1)
+                {
+                  currentCube.incSpeed(time);
+                }
+                else if (lastHandDirection == 1)
+                {
+                  currentCube.decSpeed(time); 
+                }
+              }*/
+                       
             }
           }
         }
@@ -267,31 +302,39 @@ void draw()
     // outside of leap motion for-loop
     
     // check every cube each draw iteration to see if each needs to be rotated
-    for (int i = 0; i < MAX_CUBES; i++)
-    { 
-        currentCube = lattice.getCubeAtIndex(i);
-        if(currentCube.rotateForward(time))
-        {
-          currentCube.loadPixelPacket(opc);
-//          currentCube.loadPixelPacketLife(opc, ((float)currentCube.getSpeed() + 6)/12.0);
-          opc.sendPixels();    
-        }
+//    if (time - lastFadeTime > fadeDelay)
+    {
+      for (int i = 0; i < MAX_CUBES; i++)
+      { 
+          currentCube = lattice.getCubeAtIndex(i);
+          if(currentCube.rotate(time))
+          {
+            println("cube at index: " + i);
+            currentCube.loadPixelPacket(opc);
+            // speed needs to absolute value for translating to brightness
+  //          currentCube.loadPixelPacketLife(opc, ((float)abs(currentCube.getSpeed()) + 10)/16.0); 
+            opc.sendPixels();
+            println(ticker + " :sending pixels now");    
+          }
+      }
+      
+      lastFadeTime = time;
     }
     
     // end cube rotation code
     
     // decrement the rotation speed for all the cubes in the lattice after every second
-    time = millis();
+//    time = millis();
     if (time - oldTime > delay)
     {
       for (int i = 0; i < MAX_CUBES; i++)
       {
-        lattice.getCubeAtIndex(i).decSpeed();
+        lattice.getCubeAtIndex(i).slowSpeed();
       }
       oldTime = time;
       ticker++;
     }     
-    
+    //opc.sendPixels();
 }
 
 void clearVolume(int [][][] vol, int x, int y, int z)

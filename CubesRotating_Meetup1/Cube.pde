@@ -18,7 +18,7 @@ public class Cube
     posterior = new Pixel(p, 0, 0, 0);
     inferior = new Pixel(i, 0, 0, 0);
     
-    speed = 1;
+    speed = 0; // range between -6 and 6
     
     timeOfLastRotation = millis();
     timeOfLastSpeedIncrease = millis();
@@ -54,23 +54,23 @@ public class Cube
     inferior.loadPixel(opc);
   }
   
-  boolean rotateForward(int currentTime) // rotates the colors of the LEDs one step forward, towards the viewer
+  boolean rotate(int currentTime) // rotates the colors of the LEDs one step forward, towards the viewer
   {
     boolean rotated = false;
     color temp;
     //int currentTime = millis();
     
     // check time against rotation speed to know if it's time to rotate again
-    if (currentTime - timeOfLastRotation >= speedToTime(speed))
+    if (currentTime - timeOfLastRotation >= speedToTime(abs(speed)))
     {
-    
-      temp = anterior.getColor();
-      
-      anterior.setColor(superior.getColor());
-      superior.setColor(posterior.getColor());
-      posterior.setColor(inferior.getColor());
-  
-      inferior.setColor(temp);
+      if (speed > 0)
+      {
+        this.rotateForward();
+      }
+      else if (speed < 0)
+      {
+        this.rotateBack();
+      }
       
       timeOfLastRotation = currentTime;
       
@@ -78,6 +78,19 @@ public class Cube
     }
     
     return rotated;
+  }
+  
+  void rotateForward() // rotates the colors of the LEDs one step forward, towards the viewer
+  {
+    color temp;
+    
+    temp = anterior.getColor();
+    
+    anterior.setColor(superior.getColor());
+    superior.setColor(posterior.getColor());
+    posterior.setColor(inferior.getColor());
+
+    inferior.setColor(temp);
   }
   
   void rotateBack() // rotates the colors of the LEDs one step backward, away from the viewer
@@ -101,7 +114,7 @@ public class Cube
   
    void incSpeed(int currentTime)
    {
-      if(currentTime - timeOfLastSpeedIncrease >= 400) // slow increase of speed so it is more gradual and noticable
+      if(currentTime - timeOfLastSpeedIncrease >= 20) // slowing the acceleration so it is more gradual and noticable
       {
         speed = speed + 1;
         if (speed > 6)
@@ -109,15 +122,42 @@ public class Cube
          speed = 6;
         }
         //println("Speed increased to : " + speed);
+        
+        timeOfLastSpeedIncrease = currentTime;
       }
    } 
    
-   void decSpeed()
+   void decSpeed(int currentTime)
    {
-     speed = speed - 1;
-     if (speed < 1)
+      if(currentTime - timeOfLastSpeedIncrease >= 20) // slowing the acceleration so it is more gradual and noticable
+      {
+        speed = speed - 1;
+        if (speed < -6)
+        {
+         speed = -6;
+        }
+        //println("Speed decreased to : " + speed);
+        timeOfLastSpeedIncrease = currentTime;
+      }
+   } 
+   
+   void slowSpeed()
+   {
+     if (speed > 0)
      {
-       speed = 1;
+       speed = speed - 1;
+       if (speed < 0)
+       {
+         speed = 0;
+       }
+     }
+     else if (speed < 0)
+     {
+       speed = speed + 1;
+       if (speed > 0)
+       {
+         speed = 0;
+       }
      }
    }
    
@@ -138,29 +178,33 @@ public class Cube
     int t = 0;
     switch (s)
     {
+      case 0:
+        t = 1000000; // 11 days
+        break;
+      
       case 1:
         t = 1000;
-      break;
+        break;
       
       case 2:
         t = 500;
-      break;
+        break;
       
       case 3:
         t = 250;
-      break;
+        break;
       
       case 4:
         t = 125;
-      break;
+        break;
       
       case 5:
         t = 62;
-      break;
+        break;
       
       case 6:
         t = 31;
-      break;
+        break;
       
     }
     
