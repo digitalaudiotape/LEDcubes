@@ -108,7 +108,7 @@ void setup()
   
   lattice.printContents();
   
-  cubeIndexCluster = new int[27];
+  cubeIndexCluster = new int[125];
 }
 
 void allPixelsOff()
