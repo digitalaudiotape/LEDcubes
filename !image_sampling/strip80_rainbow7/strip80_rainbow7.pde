@@ -6,7 +6,7 @@ void setup()
   size(800, 200);
 
   // Load a sample image
-  im = loadImage("rainbow5.jpeg");
+  im = loadImage("rainbow7.jpeg");
 
   // Connect to the local instance of fcserver
   opc = new OPC(this, "127.0.0.1", 7890);
