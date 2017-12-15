@@ -12,7 +12,7 @@ void setup()
   opc = new OPC(this, "127.0.0.1", 7890);
 
   // Map one 64-LED strip to the center of the window
-  opc.ledStrip(0, 80, width/2, height/2, width / 70.0, 0, false);
+  opc.ledStrip(0, 80, width/2, height/2, width / 80.0, 0, false);
 }
 
 void draw()
